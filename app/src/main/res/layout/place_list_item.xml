@@ -36,9 +36,7 @@
         app:layout_constraintEnd_toStartOf="@+id/map_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_name"
-
-        tools:text="Place name"/>
+        app:layout_constraintTop_toBottomOf="@+id/place_name" />
 
     <ImageView
         android:id="@+id/map_icon"
@@ -48,6 +46,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/dark_gray"
         app:srcCompat="@android:drawable/ic_dialog_map"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
