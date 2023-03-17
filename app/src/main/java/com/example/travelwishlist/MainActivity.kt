@@ -1,5 +1,6 @@
 package com.example.travelwishlist
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -15,12 +16,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travelwishlist.R.id.reason_edit_text
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity() : AppCompatActivity(), OnListItemClickedListener, OnDataChangedListener {
     private lateinit var newPlaceEditText: EditText
     private lateinit var addNewPlaceButton: Button
     private lateinit var placeListRecyclerView: RecyclerView
+    private lateinit var etReason: EditText
 
     private lateinit var placesRecyclerAdapter: PlaceRecyclerAdapter
 
@@ -32,6 +35,7 @@ class MainActivity() : AppCompatActivity(), OnListItemClickedListener, OnDataCha
 
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,6 +43,7 @@ class MainActivity() : AppCompatActivity(), OnListItemClickedListener, OnDataCha
         placeListRecyclerView = findViewById(R.id.place_list)
         newPlaceEditText = findViewById(R.id.new_place_name)
         addNewPlaceButton = findViewById(R.id.add_new_place_button)
+        etReason = findViewById(reason_edit_text)
 
         val places = placesListModel.getPlaces()
 
@@ -56,14 +61,15 @@ class MainActivity() : AppCompatActivity(), OnListItemClickedListener, OnDataCha
     }
 
     private fun addNewPlace() {
-        val placeName = newPlaceEditText.text.toString()
-        val name = placeName.trim() // trim method removes blank spaces
-        if (name.isEmpty()) {
-            Toast.makeText(this, "Enter a place name", Toast.LENGTH_SHORT).show()
+        val name = newPlaceEditText.text.toString().trim()
+        val reason = etReason.text.toString().trim() // trim method removes blank spaces
+        if (name.isEmpty() && reason.isEmpty()) {
+            Toast.makeText(this, "Enter a place name and a reason", Toast.LENGTH_SHORT).show()
         } else {
-            val place = Place(name)
-            val positionAdded = placesListModel.addNewPlace(place)
-            if (positionAdded == -1) {
+            val newPlace = Place(name, reason)
+            val positionAdded = placesListModel.addNewPlace(newPlace)
+
+            if (positionAdded == -1 ) {
                     Toast.makeText(this, "You already added that place", Toast.LENGTH_SHORT).show()
             } else {
                 placesRecyclerAdapter.notifyItemInserted(positionAdded)
@@ -72,9 +78,11 @@ class MainActivity() : AppCompatActivity(), OnListItemClickedListener, OnDataCha
             }
         }
    }
-
+    // clearForm() method clears text from edit text newPlace and reason
     private fun clearForm() {
        newPlaceEditText.text.clear()
+       etReason.text.clear()
+
    }
 
    private fun hideKeyboard() {
