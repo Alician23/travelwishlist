@@ -8,35 +8,35 @@ const val TAG = "PLACES_VIEW_FOR_MODEL"
 
 class PlacesViewModel: ViewModel() {
 
-    private val places = mutableListOf(Place("Sydney, AU", " To see Kangaroo hopping") )
+    private val placeNames = mutableListOf<Place>(Place("Sydney, AU", " To see Kangaroo hopping"), Place("Patagonia, Chile"), Place("Auckland, NZ"))
 
     fun getPlaces(): List<Place> {
-        return places // smart cast
+        return placeNames // smart cast
     }
 
     fun addNewPlace(place: Place, position: Int? = null): Int {
 
-        if (places.any { placeName -> placeName.name.uppercase() == place.name.uppercase() }) {
+        if (placeNames.any { placeNames -> placeNames.name.uppercase() == place.name.uppercase() }) {
             return -1 // avoid duplications by returning -1
         }
         return if (position == null) {
-            places.add(place) // adds at the end
-            return places.lastIndex
+            placeNames.add(place) // adds at the end
+            return placeNames.lastIndex
         } else {
-            places.add(position, place)
+            placeNames.add(position, place)
            return position
         }
     }
 
     fun addNewReason(place: Place, position: Int? = null): Int {
-        if (places.any { placeReason -> placeReason.reason.uppercase() == place.reason.uppercase() }) {
+        if (placeNames.any { placeReason -> placeReason.reason.uppercase() == place.reason.uppercase() }) {
             return -1
         }
         return  if (position == null) {
-            places.add(place)
-            return places.lastIndex
+            placeNames.add(place)
+            return placeNames.lastIndex
         } else {
-            places.add(position, place)
+            placeNames.add(position, place)
             return position
         }
 
@@ -44,14 +44,14 @@ class PlacesViewModel: ViewModel() {
 
     fun movePLace(from: Int, to: Int) {
         // Remove place and save value
-        val place = places.removeAt(from)
+        val place = placeNames.removeAt(from)
         // Insert into list at new position
-        places.add(to, place)
+        placeNames.add(to, place)
        Log.d(TAG, place.toString())
     }
 
     fun deletePlace(position: Int) : Place {
-        return  places.removeAt(position)
+        return  placeNames.removeAt(position)
     }
 }
 

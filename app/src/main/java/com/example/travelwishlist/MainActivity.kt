@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelwishlist.R.id.reason_edit_text
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity() : AppCompatActivity(), OnListItemClickedListener, OnDataChangedListener {
@@ -31,11 +32,6 @@ class MainActivity() : AppCompatActivity(), OnListItemClickedListener, OnDataCha
         ViewModelProvider(this).get(PlacesViewModel::class.java)
     }
 
-    constructor(parcel: Parcel) : this() {
-
-    }
-
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -66,66 +62,76 @@ class MainActivity() : AppCompatActivity(), OnListItemClickedListener, OnDataCha
         if (name.isEmpty() && reason.isEmpty()) {
             Toast.makeText(this, "Enter a place name and a reason", Toast.LENGTH_SHORT).show()
         } else {
-            val newPlace = Place(name, reason)
-            val positionAdded = placesListModel.addNewPlace(newPlace)
+            val place = Place(name, reason)
+            val positionAdded = placesListModel.addNewPlace(place)
 
-            if (positionAdded == -1 ) {
-                    Toast.makeText(this, "You already added that place", Toast.LENGTH_SHORT).show()
+            if (positionAdded == -1) {
+                Toast.makeText(this, "You already added that place", Toast.LENGTH_SHORT).show()
             } else {
                 placesRecyclerAdapter.notifyItemInserted(positionAdded)
                 clearForm()
                 hideKeyboard()
             }
         }
-   }
+    }
+
     // clearForm() method clears text from edit text newPlace and reason
     private fun clearForm() {
-       newPlaceEditText.text.clear()
-       etReason.text.clear()
-
-   }
-
-   private fun hideKeyboard() {
-      this.currentFocus?.let { view ->
-          val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                imm?.hideSoftInputFromWindow(view.windowToken, 0)
-      }
-   }
-
-    override fun onListItemMoved(from: Int, to: Int) {
-        placesListModel.movePlace(from, to )
-        placesRecyclerAdapter.notifyItemMoved(from, to)
+        newPlaceEditText.text.clear()
+        etReason.text.clear()
     }
 
-   override fun onListItemClicked(place: Place) {
-        val placeLocationUri = Uri.parse("geo:0,0?q=${place}")
-        val mapIntent = Intent(Intent.ACTION_VIEW, placeLocationUri)
-        startActivity(mapIntent)
-    }
-
-    override fun onListItemDeleted(position: Int) {
-
-        val place = placesListModel.deletePlace(position)
-        placesRecyclerAdapter.notifyItemRemoved(position)
-
-        Snackbar.make(findViewById(R.id.container), getString(R.string.place_deleted, place.name), Snackbar
-            .setActionTextColor(resources.getColor(R.color.red))
-            .setBackgroundTint(resources.getColor(R.color.black))
-            .setAction(getString(R.string.undo_delete)) {
-              placesListModel.addNewPlace(place,position)
-              placesRecyclerAdapter.notifyItemInserted(position)
+    fun hideKeyboard() {
+        this.currentFocus?.let { view ->
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
-        .show())
-    }
 
+        override fun onListItemClicked(place: Place) {
+            showMapForPLace(place)
+        }
 
-    companion object CREATOR : Parcelable.Creator<MainActivity> {
-        override fun createFromParcel(parcel: Parcel): MainActivity {
-            return MainActivity(parcel)
+        private fun showMapForPLace(place: Place) {
+            Toast.makeText(
+                this,
+                getString(R.string.showing_map_message, place.name).Toast.LENGTH_LONG
+            ).show()
+            val placeLocationUri = Uri.parse("geo:0,0?q=${place}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, placeLocationUri)
+            startActivity(mapIntent)
         }
-        override fun newArray(size: Int): Array<MainActivity?> {
-            return arrayOfNulls(size)
+
+        override fun onListItemMoved(from: Int, to: Int) {
+            placesListModel.movePlace(from, to)
+            placesRecyclerAdapter.notifyItemMoved(from, to)
         }
+
+        override fun onListItemDeleted(position: Int) {
+
+            val place = placesListModel.deletePlace(position)
+            placesRecyclerAdapter.notifyItemRemoved(position)
+
+            Snackbar.make(findViewById(R.id.container),
+                getString(R.string.place_deleted, place.name),
+                Snackbar.LENGTH_LONG
+                    .setActionTextColor(resources.getColor(R.color.red))
+                    .setBackgroundTint(resources.getColor(R.color.black))
+                    .setAction(getString(R.string.undo_delete)) {
+                        placesListModel.addNewPlace(place, position)
+                        placesRecyclerAdapter.notifyItemInserted(position)
+                    }
+                    .show())
+        }
+
+        companion object CREATOR : Parcelable.Creator<MainActivity> {
+            override fun createFromParcel(parcel: Parcel): MainActivity {
+                return MainActivity(parcel)
+            }
+
+            override fun newArray(size: Int): Array<MainActivity?> {
+                return arrayOfNulls(size)
+            }
+        }
+
     }
 }
-
