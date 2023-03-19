@@ -11,65 +11,92 @@
         android:id="@+id/map_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/extra_large_spacing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_dialog_map" />
 
-    <TextView
-        android:id="@+id/tv_explain"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/ed_explain"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/reason_for_place"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="67dp" />
+        android:layout_margin="@dimen/small_spacing"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:padding="@dimen/medium_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/date_place_added"
+        app:layout_constraintStart_toStartOf="@id/place_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/place_name"
-        android:layout_width="133dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_spacing"
         android:padding="@dimen/medium_spacing"
         android:textAlignment="viewStart"
         android:textSize="@dimen/larger_text_size"
-        app:layout_constraintBottom_toTopOf="@+id/reason_for_place"
-        app:layout_constraintEnd_toStartOf="@+id/date_place_added"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/map_icon"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Place name" />
 
     <TextView
         android:id="@+id/date_place_added"
-        android:layout_width="137dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_spacing"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
         android:padding="@dimen/medium_spacing"
         android:textAlignment="viewStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="@dimen/medium_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/map_icon"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_name"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Date added" />
 
     <TextView
         android:id="@+id/reason_for_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="67dp" />
+        android:text="Reason"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="49dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_end="66dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="38dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
