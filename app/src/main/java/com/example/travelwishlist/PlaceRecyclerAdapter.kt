@@ -21,8 +21,8 @@ class PlaceRecyclerAdapter(private val places: List<Place>,
             val placeNameText: TextView = view.findViewById(R.id.place_name)
             placeNameText.text = place.name
 
-            val etReason: TextView = view.findViewById(R.id.reason_edit_text)
-            etReason.text = place.field
+            val etReason: TextView = view.findViewById(R.id.reason_for_place)
+            etReason.text = place.reason
 
             val dateCreatedOnText = view.findViewById<TextView>(R.id.date_place_added)
             dateCreatedOnText.text =
@@ -42,7 +42,7 @@ class PlaceRecyclerAdapter(private val places: List<Place>,
             }
 
             // called by the recycler view to set the data for one list item, by position
-    override fun onBindViewHolder(holder: ViewHolder, postition: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
                 val place = places[position]
                 holder.bind(place)
             }

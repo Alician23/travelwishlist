@@ -8,7 +8,7 @@ const val TAG = "PLACES_VIEW_FOR_MODEL"
 
 class PlacesViewModel: ViewModel() {
 
-    private val placeNames = mutableListOf<Place>(Place("Sydney, AU", " To see Kangaroo hopping"), Place("Patagonia, Chile"), Place("Auckland, NZ"))
+    private val placeNames = mutableListOf<Place>(Place("Sydney, AU", " To see Kangaroo hopping"), Place("Patagonia, Chile","To see cows"), Place("Auckland, NZ", "dddd"))
 
     fun getPlaces(): List<Place> {
         return placeNames // smart cast
@@ -42,7 +42,7 @@ class PlacesViewModel: ViewModel() {
 
     }
 
-    fun movePLace(from: Int, to: Int) {
+    fun movePlace(from: Int, to: Int) {
         // Remove place and save value
         val place = placeNames.removeAt(from)
         // Insert into list at new position

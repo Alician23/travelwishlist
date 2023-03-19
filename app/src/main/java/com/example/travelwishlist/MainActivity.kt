@@ -86,52 +86,45 @@ class MainActivity() : AppCompatActivity(), OnListItemClickedListener, OnDataCha
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
 
-        override fun onListItemClicked(place: Place) {
-            showMapForPLace(place)
-        }
+    override fun onListItemClicked(place: Place) {
+        showMapForPLace(place)
+    }
 
-        private fun showMapForPLace(place: Place) {
-            Toast.makeText(
-                this,
-                getString(R.string.showing_map_message, place.name).Toast.LENGTH_LONG
-            ).show()
-            val placeLocationUri = Uri.parse("geo:0,0?q=${place}")
-            val mapIntent = Intent(Intent.ACTION_VIEW, placeLocationUri)
-            startActivity(mapIntent)
-        }
+    private fun showMapForPLace(place: Place) {
+        Toast.makeText(
+            this,
+            getString(R.string.showing_map_message, place.name), Toast.LENGTH_LONG
+        ).show()
+        val placeLocationUri = Uri.parse("geo:0,0?q=${place}")
+        val mapIntent = Intent(Intent.ACTION_VIEW, placeLocationUri)
+        startActivity(mapIntent)
+    }
 
-        override fun onListItemMoved(from: Int, to: Int) {
-            placesListModel.movePlace(from, to)
-            placesRecyclerAdapter.notifyItemMoved(from, to)
-        }
+    override fun onListItemMoved(from: Int, to: Int) {
+        placesListModel.movePlace(from, to)
+        placesRecyclerAdapter.notifyItemMoved(from, to)
+    }
 
-        override fun onListItemDeleted(position: Int) {
+    override fun onListItemDeleted(position: Int) {
 
-            val place = placesListModel.deletePlace(position)
-            placesRecyclerAdapter.notifyItemRemoved(position)
+        val place = placesListModel.deletePlace(position)
+        placesRecyclerAdapter.notifyItemRemoved(position)
 
-            Snackbar.make(findViewById(R.id.container),
-                getString(R.string.place_deleted, place.name),
-                Snackbar.LENGTH_LONG
-                    .setActionTextColor(resources.getColor(R.color.red))
-                    .setBackgroundTint(resources.getColor(R.color.black))
-                    .setAction(getString(R.string.undo_delete)) {
-                        placesListModel.addNewPlace(place, position)
-                        placesRecyclerAdapter.notifyItemInserted(position)
-                    }
-                    .show())
-        }
-
-        companion object CREATOR : Parcelable.Creator<MainActivity> {
-            override fun createFromParcel(parcel: Parcel): MainActivity {
-                return MainActivity(parcel)
+        Snackbar.make(
+            findViewById(R.id.container),
+            getString(R.string.place_deleted, place.name),
+            Snackbar.LENGTH_LONG
+        )
+            .setActionTextColor(resources.getColor(R.color.red))
+            .setBackgroundTint(resources.getColor(R.color.black))
+            .setAction(getString(R.string.undo_delete)) {
+                placesListModel.addNewPlace(place, position)
+                placesRecyclerAdapter.notifyItemInserted(position)
             }
-
-            override fun newArray(size: Int): Array<MainActivity?> {
-                return arrayOfNulls(size)
-            }
-        }
-
+            .show()
     }
 }
+
+
