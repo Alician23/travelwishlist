@@ -1,13 +1,10 @@
 package com.example.travelwishlist
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText

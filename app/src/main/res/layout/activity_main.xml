@@ -14,27 +14,30 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/travel_background" />
 
     <EditText
         android:id="@+id/new_place_name"
-        android:layout_width="0dp"
+        android:layout_width="294dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_spacing"
         android:background="@color/white"
         android:backgroundTint="@android:color/white"
         android:ems="10"
-        android:hint="@string/Where_do_you_want_go"
+        android:hint="@string/Where_do_you_want_to_go"
         android:inputType="textPersonName"
         android:minHeight="32dp"
         android:padding="@dimen/small_spacing"
+        app:layout_constraintBottom_toTopOf="@+id/reason_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/add_new_place_button"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_marginBaseline="10dp" />
 
     <Button
@@ -42,14 +45,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_spacing"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/black"
         android:padding="@dimen/small_spacing"
         android:text="@string/add"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="@+id/new_place_name"
+        app:layout_constraintBottom_toTopOf="@+id/reason_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/new_place_name"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/place_list"
@@ -59,20 +63,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_place_name" />
+        app:layout_constraintTop_toBottomOf="@+id/reason_edit_text" />
 
     <EditText
         android:id="@+id/reason_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="382dp"
+        android:layout_height="39dp"
+        android:layout_margin="@dimen/medium_spacing"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="32dp"
+        android:padding="@dimen/small_spacing"
         android:text="Reason"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        tools:layout_editor_absoluteY="346dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
